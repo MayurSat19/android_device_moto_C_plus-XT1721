@@ -1,6 +1,6 @@
-#                                       Device Tree for motorola Moto C (3.18.35+)
+#                                       Device Tree for motorola Moto C plus (3.18.35+)
 
-The Moto C (codenamed _"namath"_) is a mid-range smartphone from motorola.
+The Moto C plus (codenamed _"penalli"_) is a mid-range smartphone from motorola.
 
 Basic   | Spec Sheet
 -------:|:-------------------------
