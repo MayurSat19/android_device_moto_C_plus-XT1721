@@ -26,17 +26,26 @@ TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 
 # Kernel
-BOARD_KERNEL_IMAGE_NAME := Image.gz
+BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 TARGET_KERNEL_SOURCE := kernel/motorola/panelli
 BOARD_KERNEL_BASE := 0x40000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_RAMDISK_OFFSET := 0x04000000
 BOARD_TAGS_OFFSET := 0xE000000
+ifeq ($(FORCE_32_BIT),true)
 ARCH := arm
+TARGET_ARCH := arm
+KERNEL_ARCH := arm
 TARGET_KERNEL_ARCH := arm
 TARGET_KERNEL_CONFIG := A158_defconfig
-BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive androidboot.selinux=disabled buildvariant=userdebug
+BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive androidboot.selinux=disabled 
 BOARD_KERNEL_OFFSET := 0x00008000
+else
+TARGET_KERNEL_ARCH := arm64
+BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 androidboot.selinux=permissive androidboot.selinux=disabled 
+BOARD_KERNEL_OFFSET = 0x00080000
+TARGET_USES_64_BIT_BINDER := true
+endif
 BOARD_MKBOOTIMG_ARGS := --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_TAGS_OFFSET)
 
 # make_ext4fs requires numbers in dec format
